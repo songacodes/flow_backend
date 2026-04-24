@@ -7,8 +7,12 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
-    logging: false, // Set to true if you want to see SQL queries in the console
+    port: process.env.DB_PORT || 3306, // Add this line
+    dialect: 'mysql', // You can hardcode 'mysql' or use process.env.DB_DIALECT
+    logging: false,
+    dialectOptions: {
+      connectTimeout: 60000 // High timeout for free tier stability
+    }
   }
 );
 
